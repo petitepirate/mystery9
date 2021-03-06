@@ -7,21 +7,25 @@ import NavBar from "./NavBar";
 import { Route, Switch } from "react-router-dom";
 import Menu from "./Menu";
 import Item from "./Item";
-import AddItem from './AddItem'
+import AddItem from './AddItem';
+import {useHistory} from 'react-router-dom'
 
 function App() {
+  //create default form data to be empty
   const INIITIAL_FORM_DATA = {
     name: '',
     description: '',
     recipe: '',
     serve: ''
   }
+  const history = useHistory()
   const [isLoading, setIsLoading] = useState(true);
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState({}); //update snack state to items
   const [formData, setFormData] = useState(INIITIAL_FORM_DATA)
 
   useEffect(() => {
     async function getItems() {
+      //update getSnacks to getItems
       let items = await SnackOrBoozeApi.getItems();
       setItems(items);
       setIsLoading(false);
@@ -29,6 +33,7 @@ function App() {
     getItems();
   }, []);
 
+  //create helpers for adding drinks/snacks
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormData((fdata) => ({
@@ -48,6 +53,7 @@ function App() {
     setFormData(INIITIAL_FORM_DATA);
   }
 
+  //loading helper
   if (isLoading) {
     return <p>Loading &hellip;</p>;
   }
@@ -79,7 +85,7 @@ function App() {
             <Home />
           </Route>
           <Route>
-            <p>Oops. That's not here, but click Snacks or Drinks for some tasty options!</p>
+            <p>Hmmm. I cant seem to find what you want.</p>
           </Route>
         </Switch>
       </main>

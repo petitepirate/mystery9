@@ -11,12 +11,14 @@ const BASE_API_URL = "http://localhost:5000";
 class SnackOrBoozeApi {
 
   static async getItems() {
+    //update getSnacks to get all Item Types (Snacks & Drinks)
     const snacks = await axios.get(`${BASE_API_URL}/snacks`);
     const drinks = await axios.get(`${BASE_API_URL}/drinks`);
     return {snacks: snacks.data, drinks: drinks.data}
   }
 
   static async addNewItem(type, item) {
+    // async function to add a new item
     const resp = await axios.post(`${BASE_API_URL}/${type}`, item)
     if (resp.status === 201) {
       return true;
