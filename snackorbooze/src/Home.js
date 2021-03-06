@@ -6,10 +6,8 @@ function Home() {
     <section className="col-md-8">
       <Card>
         <CardBody className="text-center">
-          <CardTitle>
-            <h3 className="font-weight-bold">
-              Welcome to Silicon Valley's premier dive cafe!
-            </h3>
+          <CardTitle className="font-weight-bold">
+            Welcome to Silicon Valley's premier dive cafe!
           </CardTitle>
         </CardBody>
       </Card>

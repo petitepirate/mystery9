@@ -1,25 +1,52 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import SnackOrBoozeApi from "./Api";
 import NavBar from "./NavBar";
 import { Route, Switch } from "react-router-dom";
-import Menu from "./FoodMenu";
-import Snack from "./FoodItem";
+import Menu from "./Menu";
+import Item from "./Item";
+import AddItem from './AddItem'
 
 function App() {
+  const INIITIAL_FORM_DATA = {
+    name: '',
+    description: '',
+    recipe: '',
+    serve: ''
+  }
   const [isLoading, setIsLoading] = useState(true);
-  const [snacks, setSnacks] = useState([]);
+  const [items, setItems] = useState({});
+  const [formData, setFormData] = useState(INIITIAL_FORM_DATA)
 
   useEffect(() => {
-    async function getSnacks() {
-      let snacks = await SnackOrBoozeApi.getSnacks();
-      setSnacks(snacks);
+    async function getItems() {
+      let items = await SnackOrBoozeApi.getItems();
+      setItems(items);
       setIsLoading(false);
     }
-    getSnacks();
+    getItems();
   }, []);
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData((fdata) => ({
+      ...fdata,
+      [name]: value
+    }));
+  }
+
+  const submitHandler = (e, type) => {
+    e.preventDefault();
+    const newItem = {
+      ...formData,
+      id: formData.name.toLowerCase().replace(/\s/g, '-')
+    }
+    const added = SnackOrBoozeApi.addNewItem(type, newItem);
+    added ? history.push(`/${type}`) : alert('Something went wrong. Please try again.')
+    setFormData(INIITIAL_FORM_DATA);
+  }
 
   if (isLoading) {
     return <p>Loading &hellip;</p>;
@@ -27,25 +54,35 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <main>
-          <Switch>
-            <Route exact path="/">
-              <Home snacks={snacks} />
-            </Route>
-            <Route exact path="/snacks">
-              <Menu snacks={snacks} title="Snacks" />
-            </Route>
-            <Route path="/snacks/:id">
-              <Snack items={snacks} cantFind="/snacks" />
-            </Route>
-            <Route>
-              <p>Hmmm. I can't seem to find what you want.</p>
-            </Route>
-          </Switch>
-        </main>
-      </BrowserRouter>
+      <NavBar numSnacks={items.snacks.length} numDrinks={items.drinks.length} />
+      <main>
+        <Switch>
+          <Route exact path="/snacks">
+            <Menu items={items.snacks} title="Snacks" />
+          </Route>
+          <Route exact path="/drinks">
+            <Menu items={items.drinks} title="Drinks" />
+          </Route>
+          <Route path="/snacks/add">
+            <AddItem  type="snacks" formData={formData} changeHandler={changeHandler} submitHandler={submitHandler} />
+          </Route>
+          <Route path="/drinks/add">
+            <AddItem  type="drinks" formData={formData} changeHandler={changeHandler} submitHandler={submitHandler} />
+          </Route>
+          <Route path="/snacks/:id">
+            <Item items={items.snacks} cantFind="/snacks" />
+          </Route>
+          <Route path="/drinks/:id">
+            <Item items={items.drinks} cantFind="/drinks" />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route>
+            <p>Oops. That's not here, but click Snacks or Drinks for some tasty options!</p>
+          </Route>
+        </Switch>
+      </main>
     </div>
   );
 }
