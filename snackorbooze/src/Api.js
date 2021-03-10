@@ -19,11 +19,9 @@ class SnackOrBoozeApi {
 
   static async addNewItem(type, item) {
     // async function to add a new item
-    const resp = await axios.post(`${BASE_API_URL}/${type}`, item)
-    if (resp.status === 201) {
-      return true;
-    }
-    return false;
+    const resp = await axios.post(`${BASE_API_URL}/${type}`, item);
+    return resp.data;
+    
   }
 
 }

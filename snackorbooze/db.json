@@ -30,17 +30,10 @@
     },
     {
       "name": "cran vodka",
-      "description": "yums",
-      "recipe": "yums",
-      "serve": "1",
+      "description": "basic drink",
+      "recipe": "cranberry + vodka",
+      "serve": "0.5",
       "id": "cran-vodka"
-    },
-    {
-      "name": "midori sour",
-      "description": "asdfda",
-      "recipe": "asdf",
-      "serve": "3",
-      "id": "midori-sour"
     }
   ],
   "snacks": [
@@ -67,17 +60,10 @@
     },
     {
       "name": "Mozzarella Sticks",
-      "description": "Absolute Yumminess",
-      "recipe": "None",
-      "serve": "2",
+      "description": "are",
+      "recipe": "the best",
+      "serve": "1",
       "id": "mozzarella-sticks"
-    },
-    {
-      "name": "mintythepirate",
-      "description": "Absolute Yumminess",
-      "recipe": "asdf",
-      "serve": "4",
-      "id": "mintythepirate"
     }
   ]
 }

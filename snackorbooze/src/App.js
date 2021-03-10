@@ -48,9 +48,11 @@ function App() {
       ...formData,
       id: formData.name.toLowerCase().replace(/\s/g, '-')
     }
-    const added = SnackOrBoozeApi.addNewItem(type, newItem);
-    added ? history.push(`/${type}`) : alert('Something went wrong. Please try again.')
-    setFormData(INIITIAL_FORM_DATA);
+    async function added() {  // try changing to async function to get items to rerender but does not work.
+      await SnackOrBoozeApi.addNewItem(type, newItem);
+      history.push(`/${type}`) 
+    }
+    added();
   }
 
   //loading helper
