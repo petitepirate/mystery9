@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import "./Menu.css";
 import {
@@ -10,8 +10,10 @@ import {
   ListGroupItem
 } from "reactstrap";
 
+
 //update Food menu to be generic menu
 function Menu({ items, title }) {
+
   const titleLow = title.toLowerCase(); //create a lower cased version of title for links
   return (
     <section className="col-md-4">
@@ -20,9 +22,6 @@ function Menu({ items, title }) {
           <CardTitle className="font-weight-bold text-center">
             {title}
           </CardTitle>
-          <CardText className="text-center">
-            Behold our tasty offerings!
-          </CardText>
           <ListGroup>
             {items.map(item => (  //map over items instead of snacks
               <Link to={`/${titleLow}/${item.id}`} key={item.id}>
