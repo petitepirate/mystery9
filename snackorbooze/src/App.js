@@ -42,17 +42,17 @@ function App() {
     }));
   }
 
-  const submitHandler = (e, type) => {
+  const submitHandler = async (e, type) => {
     e.preventDefault();
+    // const type = formData.type;
     const newItem = {
       ...formData,
       id: formData.name.toLowerCase().replace(/\s/g, '-')
     }
-    async function added() {  // try changing to async function to get items to rerender but does not work.
-      await SnackOrBoozeApi.addNewItem(type, newItem);
-      history.push(`/${type}`) 
-    }
-    added();
+await SnackOrBoozeApi.addNewItem(type, newItem);
+    history.push(`/${type}`);
+    setItems({[type]: [...items[type], newItem]}); 
+    setFormData(INIITIAL_FORM_DATA);
   }
 
   //loading helper
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar numSnacks={items.snacks.length} numDrinks={items.drinks.length} />
+      <NavBar /*numSnacks={items.snacks.length} numDrinks={items.drinks.length} *//>
       <main>
         <Switch>
           <Route exact path="/snacks">

@@ -13,10 +13,10 @@ function NavBar({ numSnacks, numDrinks }) {
 
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink to="/snacks">Snacks ({numSnacks})</NavLink>
+            <NavLink to="/snacks">Snacks {/* ({numSnacks})*/}</NavLink>  
           </NavItem>
           <NavItem>
-            <NavLink to="/drinks">Drinks ({numDrinks})</NavLink>
+            <NavLink to="/drinks">Drinks {/*({numDrinks}) */}</NavLink>  {/*these stop working when you submit handler adds new item*/}
           </NavItem>
         </Nav>
       </Navbar>

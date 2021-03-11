@@ -20,7 +20,7 @@ class SnackOrBoozeApi {
   static async addNewItem(type, item) {
     // async function to add a new item
     const resp = await axios.post(`${BASE_API_URL}/${type}`, item);
-    return resp.data;
+    return resp.data;//{type: resp.data};
     
   }
 
